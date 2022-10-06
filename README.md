@@ -1,2 +1,7 @@
 # python-find-network-requests
-If you enter a sitemap (without another sitemap below it) and the base domain, each of the pages will be searched for non-domain accesses. Theoretically, you can see on which Wordpress subpage Google Fonts are used remotely. Attention, this is only a test script which is not intended for production use. I do not guarantee that you can find out everything with it. Use at your own risk. Alpha version.
+
+Simple script to go through pages via a sitemap and look where Google Fonts and other exemplary resources are loaded externally.
+
+I am looking forward to further developers who optimize the script.
+
+The script is intended for testing purposes only. Use at your own risk. No guarantee for completeness of the analysis.
