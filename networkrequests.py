@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #
 # Network Requests search Python Script v0.0.2 by jolution
-# Description: If you enter a sitemap (without another sitemap below it), each of the pages will be searched for non-domain accesses. Theoretically, you can see on which Wordpress subpage Google Fonts are used remotely. Attention, this is only a test script which is not intended for production use. I do not guarantee that you can find out everything with it. Use at your own risk. Alpha version.
+# Description: If you enter a sitemap (without another sitemap below it) and the base domain, each of the pages will be searched for non-domain accesses. Theoretically, you can see on which Wordpress subpage Google Fonts are used remotely. Attention, this is only a test script which is not intended for production use. I do not guarantee that you can find out everything with it. Use at your own risk. Alpha version.
 # I am happy if you want to develop the script further.
 # For more information, see:
 # https://github.com/jolution/python-find-network-requests/
@@ -34,7 +34,13 @@ test_list__vimeo = ['vimeocdn.com', 'vimeo.com']
 test_list__facebook = ['connect.facebook.net', 'www.facebook.com/tr']
 
 def urlsFromSitemap(sitemap):
+#     sitemap = requests.get(sitemap, auth=('USERNAME', 'PASSWORD'))
     sitemap = requests.get(sitemap)
+
+    if (sitemap.status_code != 200):
+        print("Error: StatusCode for Sitemap")
+        print(sitemap.status_code)
+
     soup = BeautifulSoup(sitemap.content, "xml")
 
     elements = soup.findAll("url")
@@ -113,6 +119,7 @@ def goToUrl(url):
     chromium = playwright.chromium
     browser = chromium.launch()
     context = browser.new_context(viewport={'width': 1920,'height': 1080})
+#     context = browser.new_context(http_credentials={"username": "USERNAME", "password": "PASSWORD"})
     page = context.new_page()
     print(url,page.title())
     page.on('request', lambda request: checkIfExternal(request, page,"->"))
